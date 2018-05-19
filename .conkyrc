@@ -1,0 +1,53 @@
+conky.config = {
+    out_to_x = false,
+    own_window = false,
+    out_to_console = true,
+    background = false,
+    max_text_width = 0,
+
+    -- Update interval in seconds
+    update_interval = 2.0,
+
+    -- This is the number of times Conky will update before quitting.
+    -- Set to zero to run forever.
+    total_run_times = 0,
+
+    -- Shortens units to a single character (kiB->k, GiB->G, etc.). Default is off.
+    short_units = true,
+
+    -- How strict should if_up be when testing an interface for being up?
+    -- The value is one of up, link or address, to check for the interface
+    -- being solely up, being up and having link or being up, having link
+    -- and an assigned IP address. 
+    if_up_strictness = 'address',
+
+    -- Add spaces to keep things from moving about?  This only affects certain objects.
+    -- use_spacer should have an argument of left, right, or none
+    use_spacer = 'left',
+
+    -- Force UTF8? note that UTF8 support required XFT
+    override_utf8_locale = false,
+
+    -- number of cpu samples to average
+    -- set to 1 to disable averaging
+    cpu_avg_samples = 2,
+};
+
+conky.text = [[
+[
+    { "full_text": "?" , "color": "\#128B00" , "separator":false , "separator_block_width":5},
+    { "full_text": "[PAC ${execi 900 checkupdates | wc -l} | AUR ${execi 900 cower -u | wc -l}] " , "color": "\#ffffff" ,"separator":false},
+    { "full_text": "?" , "color": "\#128B00" , "separator":false , "separator_block_width":5},
+    { "full_text": "[${execi 120 ifconfig ens33 | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'}] " , "color": "\#ffffff" , "separator":false},
+    { "full_text": "?" , "color": "\#128B00" , "separator":false , "separator_block_width":5},
+    { "full_text": "[${execi 120 curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//' }] " , "color": "\#ffffff" , "separator":false},
+    { "full_text": "?" , "color": "\#128B00" , "separator":false , "separator_block_width":5},
+    { "full_text": "[${fs_free /} FREE] " , "color": "\#ffffff" , "separator":false},
+    { "full_text": "?" , "color": "\#128B00" , "separator":false , "separator_block_width":5},
+    { "full_text": "[${memperc}%] " , "color": ${if_match ${memperc}<90}"\#ffffff"${else}"\#ff0000"${endif} , "separator":false },
+    { "full_text": "?" , "color": "\#128B00" , "separator":false , "separator_block_width":5},
+    { "full_text": "[${time %m/%d/%Y} | ${time %A}] " , "color": "\#ffffff" , "separator":false },
+    { "full_text": "?" , "color": "\#128B00" , "separator":false , "separator_block_width":5},
+    { "full_text": "[${time %T}] " , "color": "\#ffffff"}
+],
+]];
